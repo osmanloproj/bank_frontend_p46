@@ -5,6 +5,7 @@
       <nav>
         <button v-if="isAuth" v-on:click="loadHome"> Inicio </button>
         <button v-if="isAuth" v-on:click="loadAccount"> Cuenta </button>
+        <button v-if="isAuth" v-on:click="loadTransaction"> Transferencia </button>
         <button v-if="isAuth" v-on:click="logOut"> Cerrar Sesión </button>
 
         <button v-if="!isAuth" v-on:click="loadLogIn"> Iniciar Sesión </button>
@@ -16,6 +17,7 @@
       <router-view
         v-on:completedLogIn="completedLogIn"
         v-on:completedSignUp="completedSignUp"
+        v-on:completedTransaction="completedTransaction"
         v-on:logOut="logOut"
       >
       </router-view>
@@ -60,6 +62,10 @@
         this.$router.push({name: "account"});
       },
 
+      loadTransaction: function(){
+        this.$router.push({name: "transactionCreate"});
+      },
+
       logOut: function(){
         localStorage.clear();
         alert("Sesión terminada");
@@ -87,6 +93,11 @@
         alert("Registro exitoso");
         this.completedLogIn(data);
       },
+
+      completedTransaction: function(){
+        alert("Transacción exitosa.");
+        this.$router.push({name:"account"})
+      }
     },
 
     created: function(){
@@ -120,7 +131,7 @@
 
   .header nav {
     height: 100%;
-    width: 20%;
+    width: 28%;
     display: flex;
     justify-content: space-around;
     align-items: center;
